@@ -1,7 +1,9 @@
 module websocket
+import net
+import time
 
-const tcp_ip = '127.0.0.1'
-const tcp_port = 80
+pub const tcp_ip = '127.0.0.1'
+pub const tcp_port = 80
 
 // client_handshake manages the opening upgrade sequence to initialize a WebSocket connection.
 pub fn client_handshake(mut socket net.TcpConn, host string, port int) ! {

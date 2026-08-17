@@ -20,7 +20,7 @@ pub const buffer_size = 1024 * 1024
 // It automatically handles unmasking if the server frame is masked.
 pub fn read_frame(mut socket net.TcpConn) !([]u8, u8) {
   mut header := []u8{len: 2}
-  socket.read(header)!
+  socket.read(mut header)!
 
   opcode := header[0] & 0xff
   mask_bit := (header[1] & 0x80) != 0
@@ -29,7 +29,7 @@ pub fn read_frame(mut socket net.TcpConn) !([]u8, u8) {
   if payload_len == 126 {
     mut ext_len := []u8{len: 2}
     socket.read(mut ext_len)!
-    payload_len = (u64(ext_len[0] << 8) | u64(ext_len[1]))
+    payload_len = (u64(ext_len[0]) << 8) | u64(ext_len[1])
   } else if payload_len == 127 {
     mut ext_len := []u8{len: 8}
     socket.read(mut ext_len)!

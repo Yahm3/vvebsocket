@@ -1,9 +1,9 @@
 module main
-import websocket
+import websocket as ws
 
 fn main() {
   println('Connecting...')
-  mut ws_sockect := connect(tcp_ip, tcp_port) or {
+  mut ws_sockect := ws.connect(ws.tcp_ip, ws.tcp_port) or {
     eprintln('Failed to connect:${err}')
     return
   }
